@@ -3,7 +3,7 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Label="Globals">
     <CppWinRTOptimized>true</CppWinRTOptimized>
-    <CppWinRTPackage>true</CppWinRTPackage>
+    <CppWinRTPackage>true</CppWinRTPackage>`r`n    <Force-Enable-cpprestsdk>true</Force-Enable-cpprestsdk>
     <CppWinRTRootNamespaceAutoMerge>true</CppWinRTRootNamespaceAutoMerge>
     <MinimalCoreWin>true</MinimalCoreWin>
     <ProjectGuid>{7E6D19AB-15D9-4BA4-BD1A-3E70F9136D5D}</ProjectGuid>
