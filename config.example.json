@@ -1,0 +1,15 @@
+{
+  "host": "127.0.0.1",
+  "port": 8765,
+  "onebot_api_url": "http://127.0.0.1:3000",
+  "onebot_access_token": "",
+  "ai_base_url": "https://api.openai.com/v1",
+  "ai_api_key": "sk-your-key",
+  "ai_model": "gpt-4o-mini",
+  "system_prompt": "你是一个友好的 QQ 群助手，回答要简洁、自然、有帮助。",
+  "mode": "AI",
+  "reply_private": true,
+  "reply_group": true,
+  "wake_prefix": "",
+  "owner_join_text": "主人，我来咯！！！"
+}

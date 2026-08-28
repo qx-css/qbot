@@ -1,0 +1,14 @@
+.vs/
+.vscode/
+x64/
+Debug/
+Release/
+packages/
+.sdk-cache/
+.sdk-extract/
+*.user
+*.suo
+*.VC.db
+*.VC.opendb
+*.log
+config.json

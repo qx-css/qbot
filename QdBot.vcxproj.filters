@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{D6C33C2F-3B75-47D3-9C40-3FA7E6E5C671}</UniqueIdentifier>
+      <Extensions>cpp;cxx;c</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{C9E595F4-9C8E-4561-B5D2-2575E538B893}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx</Extensions>
+    </Filter>
+    <Filter Include="XAML Files">
+      <UniqueIdentifier>{1144CFF1-5AB5-4B2A-A624-6735945FE0B7}</UniqueIdentifier>
+      <Extensions>xaml</Extensions>
+    </Filter>
+    <Filter Include="Assets">
+      <UniqueIdentifier>{69B8E2F5-D25E-46AF-9956-656B86BB72A8}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="pch.cpp"><Filter>Source Files</Filter></ClCompile>
+    <ClCompile Include="main.cpp"><Filter>Source Files</Filter></ClCompile>
+    <ClCompile Include="App.xaml.cpp"><Filter>Source Files</Filter></ClCompile>
+    <ClCompile Include="MainWindow.xaml.cpp"><Filter>Source Files</Filter></ClCompile>
+    <ClCompile Include="BotEngine.cpp"><Filter>Source Files</Filter></ClCompile>
+    <ClCompile Include="ConfigManager.cpp"><Filter>Source Files</Filter></ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h"><Filter>Header Files</Filter></ClInclude>
+    <ClInclude Include="App.xaml.h"><Filter>Header Files</Filter></ClInclude>
+    <ClInclude Include="MainWindow.xaml.h"><Filter>Header Files</Filter></ClInclude>
+    <ClInclude Include="BotConfig.h"><Filter>Header Files</Filter></ClInclude>
+    <ClInclude Include="BotEngine.h"><Filter>Header Files</Filter></ClInclude>
+    <ClInclude Include="ConfigManager.h"><Filter>Header Files</Filter></ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml"><Filter>XAML Files</Filter></ApplicationDefinition>
+    <Page Include="MainWindow.xaml"><Filter>XAML Files</Filter></Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Assets\Square44x44Logo.png"><Filter>Assets</Filter></Image>
+    <Image Include="Assets\Square150x150Logo.png"><Filter>Assets</Filter></Image>
+    <Image Include="Assets\StoreLogo.png"><Filter>Assets</Filter></Image>
+  </ItemGroup>
+</Project>
