@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "MainWindow.xaml.h"
 #include "ConfigManager.h"
 
@@ -40,18 +40,18 @@ namespace winrt::QdBot::implementation
         try
         {
             m_engine->Start();
-            SetStatus(L"运行中");
+            SetStatus(L"\u8fd0\u884c\u4e2d");
         }
         catch (std::exception const& ex)
         {
-            AppendLog(std::wstring(L"启动失败：") + to_hstring(ex.what()).c_str());
+            AppendLog(std::wstring(L"\u542f\u52a8\u5931\u8d25\uff1a") + to_hstring(ex.what()).c_str());
         }
     }
 
     void MainWindow::StopButton_Click(IInspectable const&, RoutedEventArgs const&)
     {
         m_engine->Stop();
-        SetStatus(L"未启动");
+        SetStatus(L"\u672a\u542f\u52a8");
     }
 
     void MainWindow::TestAiButton_Click(IInspectable const&, RoutedEventArgs const&)
@@ -74,7 +74,7 @@ namespace winrt::QdBot::implementation
         SystemPromptBox().Text(m_config.systemPrompt);
         ReplyGroupCheck().IsChecked(m_config.replyGroup);
         ReplyPrivateCheck().IsChecked(m_config.replyPrivate);
-        ModeBox().SelectedIndex(m_config.mode == L"词库" ? 1 : 0);
+        ModeBox().SelectedIndex(m_config.mode == L"\u8bcd\u5e93" ? 1 : 0);
     }
 
     BotConfig MainWindow::ReadConfigFromUi()
@@ -90,9 +90,9 @@ namespace winrt::QdBot::implementation
         config.wakePrefix = WakePrefixBox().Text().c_str();
         config.ownerJoinText = OwnerJoinTextBox().Text().c_str();
         config.systemPrompt = SystemPromptBox().Text().c_str();
-        config.replyGroup = ReplyGroupCheck().IsChecked().GetBoolean();
-        config.replyPrivate = ReplyPrivateCheck().IsChecked().GetBoolean();
-        config.mode = ModeBox().SelectedIndex() == 1 ? L"词库" : L"AI";
+        config.replyGroup = ReplyGroupCheck().IsChecked().Value();
+        config.replyPrivate = ReplyPrivateCheck().IsChecked().Value();
+        config.mode = ModeBox().SelectedIndex() == 1 ? L"\u8bcd\u5e93" : L"AI";
         return config;
     }
 
@@ -101,7 +101,7 @@ namespace winrt::QdBot::implementation
         m_config = ReadConfigFromUi();
         ConfigManager::Save(m_config);
         m_engine->Configure(m_config);
-        AppendLog(L"配置已保存");
+        AppendLog(L"\u914d\u7f6e\u5df2\u4fdd\u5b58");
     }
 
     void MainWindow::AppendLog(std::wstring const& message)

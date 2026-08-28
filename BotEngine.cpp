@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "BotEngine.h"
 
 using namespace web;
@@ -52,7 +52,7 @@ void BotEngine::Start()
             }
             catch (std::exception const& ex)
             {
-                Log(std::wstring(L"事件处理失败：") + winrt::to_hstring(ex.what()).c_str());
+                Log(std::wstring(L"\u4e8b\u4ef6\u5904\u7406\u5931\u8d25\uff1a") + winrt::to_hstring(ex.what()).c_str());
                 request.reply(status_codes::InternalError, json::value::string(L"failed"));
             }
         });
@@ -71,7 +71,7 @@ void BotEngine::Start()
         m_listener = std::move(listener);
         m_running = true;
     }
-    Log(L"已启动：http://" + config.host + L":" + std::to_wstring(config.port));
+    Log(L"\u5df2\u542f\u52a8\uff1ahttp://" + config.host + L":" + std::to_wstring(config.port));
 }
 
 void BotEngine::Stop()
@@ -91,7 +91,7 @@ void BotEngine::Stop()
     {
         listener->close().wait();
     }
-    Log(L"已停止");
+    Log(L"\u5df2\u505c\u6b62");
 }
 
 bool BotEngine::IsRunning() const
@@ -104,8 +104,8 @@ void BotEngine::TestAi()
 {
     std::thread([this]
     {
-        auto reply = AskAi(L"请用一句话介绍你自己。");
-        Log(reply.empty() ? L"AI 测试失败" : L"AI 测试回复：" + reply);
+        auto reply = AskAi(L"\u8bf7\u7528\u4e00\u53e5\u8bdd\u4ecb\u7ecd\u4f60\u81ea\u5df1\u3002");
+        Log(reply.empty() ? L"AI \u6d4b\u8bd5\u5931\u8d25" : L"AI \u6d4b\u8bd5\u56de\u590d\uff1a" + reply);
     }).detach();
 }
 
@@ -138,7 +138,7 @@ void BotEngine::HandleGroupIncrease(json::value const& event)
             std::scoped_lock lock(m_mutex);
             config = m_config;
         }
-        Log(L"机器人加入群 " + std::to_wstring(groupId) + L"，发送入群提示");
+        Log(L"\u673a\u5668\u4eba\u52a0\u5165\u7fa4 " + std::to_wstring(groupId) + L"\uff0c\u53d1\u9001\u5165\u7fa4\u63d0\u793a");
         SendGroupMessage(groupId, config.ownerJoinText);
     }
 }
@@ -171,12 +171,12 @@ void BotEngine::HandleMessage(json::value event)
     }
     if (config.mode != L"AI")
     {
-        Log(L"当前不是 AI 模式，已忽略消息");
+        Log(L"\u5f53\u524d\u4e0d\u662f AI \u6a21\u5f0f\uff0c\u5df2\u5ffd\u7565\u6d88\u606f");
         return;
     }
 
     auto userText = config.wakePrefix.empty() ? rawMessage : rawMessage.substr(config.wakePrefix.size());
-    Log(L"收到消息：" + userText);
+    Log(L"\u6536\u5230\u6d88\u606f\uff1a" + userText);
 
     auto reply = AskAi(userText);
     if (reply.empty())
@@ -202,7 +202,7 @@ std::wstring BotEngine::AskAi(std::wstring const& userText)
     }
     if (config.aiApiKey.empty())
     {
-        Log(L"未配置 AI API Key");
+        Log(L"\u672a\u914d\u7f6e AI API Key");
         return {};
     }
 
@@ -227,7 +227,7 @@ std::wstring BotEngine::AskAi(std::wstring const& userText)
     }
     catch (std::exception const& ex)
     {
-        Log(std::wstring(L"AI 请求失败：") + winrt::to_hstring(ex.what()).c_str());
+        Log(std::wstring(L"AI \u8bf7\u6c42\u5931\u8d25\uff1a") + winrt::to_hstring(ex.what()).c_str());
         return {};
     }
 }
@@ -248,7 +248,7 @@ void BotEngine::SendGroupMessage(int64_t groupId, std::wstring const& message)
         config = m_config;
     }
     PostJson(config.onebotApiUrl + L"/send_group_msg", payload, config.onebotAccessToken);
-    Log(L"已发送群消息");
+    Log(L"\u5df2\u53d1\u9001\u7fa4\u6d88\u606f");
 }
 
 void BotEngine::SendPrivateMessage(int64_t userId, std::wstring const& message)
@@ -267,7 +267,7 @@ void BotEngine::SendPrivateMessage(int64_t userId, std::wstring const& message)
         config = m_config;
     }
     PostJson(config.onebotApiUrl + L"/send_private_msg", payload, config.onebotAccessToken);
-    Log(L"已发送私聊消息");
+    Log(L"\u5df2\u53d1\u9001\u79c1\u804a\u6d88\u606f");
 }
 
 json::value BotEngine::PostJson(std::wstring const& url, json::value const& payload, std::wstring const& bearerToken)
