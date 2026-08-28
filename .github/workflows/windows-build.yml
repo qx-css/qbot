@@ -19,10 +19,17 @@ jobs:
         uses: microsoft/setup-msbuild@v2
 
       - name: Restore NuGet packages
-        run: msbuild QdBot.vcxproj /t:restore /p:RestorePackagesConfig=true /p:Configuration=Release /p:Platform=x64
+        shell: pwsh
+        run: |
+          msbuild QdBot.vcxproj /t:restore /p:RestorePackagesConfig=true /p:Configuration=Release /p:Platform=x64
 
       - name: Build Release
-        run: msbuild QdBot.sln /p:Configuration=Release /p:Platform=x64 /m
+        shell: pwsh
+        run: |
+          $cppwinrt = Resolve-Path "packages\Microsoft.Windows.CppWinRT.2.0.240405.15\bin\cppwinrt.exe"
+          $cppwinrtDir = Split-Path $cppwinrt
+          Write-Host "cppwinrt: $cppwinrt"
+          msbuild QdBot.sln /p:Configuration=Release /p:Platform=x64 /p:CppWinRTPackage=true /p:CppWinRTPath="$cppwinrtDir\" /m
 
       - name: Collect build output
         shell: pwsh
