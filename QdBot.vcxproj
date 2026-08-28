@@ -74,9 +74,6 @@
     <ClInclude Include="App.xaml.h">
       <DependentUpon>App.xaml</DependentUpon>
     </ClInclude>
-    <ClInclude Include="MainWindow.xaml.h">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-    </ClInclude>
     <ClInclude Include="BotConfig.h" />
     <ClInclude Include="BotEngine.h" />
     <ClInclude Include="ConfigManager.h" />
@@ -88,19 +85,9 @@
     <ClCompile Include="App.xaml.cpp">
       <DependentUpon>App.xaml</DependentUpon>
     </ClCompile>
-    <ClCompile Include="MainWindow.xaml.cpp">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-    </ClCompile>
     <ClCompile Include="BotEngine.cpp" />
     <ClCompile Include="ConfigManager.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ApplicationDefinition Include="App.xaml" />
-    <Page Include="MainWindow.xaml" />
-    <Midl Include="App.idl" />
-    <Midl Include="MainWindow.idl" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -121,6 +108,7 @@
     <Import Project="packages\cpprestsdk.v142.2.10.15\build\native\cpprestsdk.v142.targets" Condition="Exists('packages\cpprestsdk.v142.2.10.15\build\native\cpprestsdk.v142.targets')" />
   </ImportGroup>
 </Project>
+
 
 
 

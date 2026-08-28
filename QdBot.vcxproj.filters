@@ -25,23 +25,15 @@
     <ClCompile Include="pch.cpp"><Filter>Source Files</Filter></ClCompile>
     <ClCompile Include="main.cpp"><Filter>Source Files</Filter></ClCompile>
     <ClCompile Include="App.xaml.cpp"><Filter>Source Files</Filter></ClCompile>
-    <ClCompile Include="MainWindow.xaml.cpp"><Filter>Source Files</Filter></ClCompile>
     <ClCompile Include="BotEngine.cpp"><Filter>Source Files</Filter></ClCompile>
     <ClCompile Include="ConfigManager.cpp"><Filter>Source Files</Filter></ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h"><Filter>Header Files</Filter></ClInclude>
     <ClInclude Include="App.xaml.h"><Filter>Header Files</Filter></ClInclude>
-    <ClInclude Include="MainWindow.xaml.h"><Filter>Header Files</Filter></ClInclude>
     <ClInclude Include="BotConfig.h"><Filter>Header Files</Filter></ClInclude>
     <ClInclude Include="BotEngine.h"><Filter>Header Files</Filter></ClInclude>
     <ClInclude Include="ConfigManager.h"><Filter>Header Files</Filter></ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ApplicationDefinition Include="App.xaml"><Filter>XAML Files</Filter></ApplicationDefinition>
-    <Page Include="MainWindow.xaml"><Filter>XAML Files</Filter></Page>
-    <Midl Include="App.idl"><Filter>IDL Files</Filter></Midl>
-    <Midl Include="MainWindow.idl"><Filter>IDL Files</Filter></Midl>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Square44x44Logo.png"><Filter>Assets</Filter></Image>
@@ -49,4 +41,5 @@
     <Image Include="Assets\StoreLogo.png"><Filter>Assets</Filter></Image>
   </ItemGroup>
 </Project>
+
 
