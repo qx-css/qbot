@@ -30,18 +30,15 @@ jobs:
           $cppwinrtDir = Split-Path $cppwinrt
           Write-Host "cppwinrt: $cppwinrt"
           msbuild QdBot.sln /p:Configuration=Release /p:Platform=x64 /p:CppWinRTPackage=true /p:CppWinRTPath="$cppwinrtDir\" /m /fileLogger "/fileLoggerParameters:LogFile=build.log;Verbosity=detailed"
-
-      - name: Print build errors
-        if: failure()
-        shell: pwsh
-        run: |
-          $patterns = 'error |fatal error|MSB[0-9]{4}|C[0-9]{4}'
-          foreach ($log in @('restore.log', 'build.log')) {
-            if (Test-Path $log) {
-              Write-Host "===== $log errors ====="
-              Select-String -Path $log -Pattern $patterns | Select-Object -First 80 | ForEach-Object { $_.Line }
+          $buildExitCode = $LASTEXITCODE
+          if ($buildExitCode -ne 0 -and (Test-Path build.log)) {
+            $patterns = 'error |fatal error|MSB[0-9]{4}|C[0-9]{4}'
+            Select-String -Path build.log -Pattern $patterns | Select-Object -First 80 | ForEach-Object {
+              $line = $_.Line.Replace('%', '%25').Replace("`r", '%0D').Replace("`n", '%0A')
+              Write-Host "::error::$line"
             }
           }
+          exit $buildExitCode
 
       - name: Collect build output
         if: success()
