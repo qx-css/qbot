@@ -18,10 +18,26 @@ jobs:
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v2
 
+      - name: Detect Windows SDK
+        id: winsdk
+        shell: pwsh
+        run: |
+          $sdkRoot = 'C:\Program Files (x86)\Windows Kits\10\bin'
+          $sdkVersion = Get-ChildItem $sdkRoot -Directory |
+            Where-Object { Test-Path (Join-Path $_.FullName 'x64\makepri.exe') } |
+            Sort-Object Name -Descending |
+            Select-Object -First 1 -ExpandProperty Name
+          if (-not $sdkVersion) {
+            Write-Host '::error::No Windows SDK with makepri.exe was found on the runner.'
+            exit 1
+          }
+          Write-Host "Windows SDK: $sdkVersion"
+          "version=$sdkVersion" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+
       - name: Restore NuGet packages
         shell: pwsh
         run: |
-          msbuild QdBot.vcxproj /t:restore /p:RestorePackagesConfig=true /p:Configuration=Release /p:Platform=x64 /fileLogger "/fileLoggerParameters:LogFile=restore.log;Verbosity=normal"
+          msbuild QdBot.vcxproj /t:restore /p:RestorePackagesConfig=true /p:Configuration=Release /p:Platform=x64 /p:WindowsTargetPlatformVersion="${{ steps.winsdk.outputs.version }}" /fileLogger "/fileLoggerParameters:LogFile=restore.log;Verbosity=normal"
 
       - name: Build Release
         shell: pwsh
@@ -29,7 +45,7 @@ jobs:
           $cppwinrt = Resolve-Path "packages\Microsoft.Windows.CppWinRT.2.0.240405.15\bin\cppwinrt.exe"
           $cppwinrtDir = Split-Path $cppwinrt
           Write-Host "cppwinrt: $cppwinrt"
-          msbuild QdBot.sln /p:Configuration=Release /p:Platform=x64 /p:CppWinRTPackage=true /p:CppWinRTPath="$cppwinrtDir\" /m /fileLogger "/fileLoggerParameters:LogFile=build.log;Verbosity=detailed"
+          msbuild QdBot.sln /p:Configuration=Release /p:Platform=x64 /p:WindowsTargetPlatformVersion="${{ steps.winsdk.outputs.version }}" /p:CppWinRTPackage=true /p:CppWinRTPath="$cppwinrtDir\" /m /fileLogger "/fileLoggerParameters:LogFile=build.log;Verbosity=detailed"
           $buildExitCode = $LASTEXITCODE
           if ($buildExitCode -ne 0 -and (Test-Path build.log)) {
             $patterns = 'error |fatal error|MSB[0-9]{4}|C[0-9]{4}'
