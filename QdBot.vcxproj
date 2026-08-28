@@ -7,6 +7,7 @@
     <Force-Enable-cpprestsdk>true</Force-Enable-cpprestsdk>
     <CppWinRTRootNamespaceAutoMerge>true</CppWinRTRootNamespaceAutoMerge>
     <MinimalCoreWin>true</MinimalCoreWin>
+    <UseWinUI>true</UseWinUI>
     <ProjectGuid>{7E6D19AB-15D9-4BA4-BD1A-3E70F9136D5D}</ProjectGuid>
     <ProjectName>QdBot</ProjectName>
     <RootNamespace>QdBot</RootNamespace>
@@ -97,6 +98,8 @@
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml" />
     <Page Include="MainWindow.xaml" />
+    <Midl Include="App.idl" />
+    <Midl Include="MainWindow.idl" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -117,5 +120,6 @@
     <Import Project="packages\cpprestsdk.v142.2.10.15\build\native\cpprestsdk.v142.targets" Condition="Exists('packages\cpprestsdk.v142.2.10.15\build\native\cpprestsdk.v142.targets')" />
   </ImportGroup>
 </Project>
+
 
 

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Source Files">
@@ -12,6 +12,10 @@
     <Filter Include="XAML Files">
       <UniqueIdentifier>{1144CFF1-5AB5-4B2A-A624-6735945FE0B7}</UniqueIdentifier>
       <Extensions>xaml</Extensions>
+    </Filter>
+    <Filter Include="IDL Files">
+      <UniqueIdentifier>{E7410C35-80FA-49D2-8C98-61D1DADFCF94}</UniqueIdentifier>
+      <Extensions>idl</Extensions>
     </Filter>
     <Filter Include="Assets">
       <UniqueIdentifier>{69B8E2F5-D25E-46AF-9956-656B86BB72A8}</UniqueIdentifier>
@@ -36,6 +40,8 @@
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml"><Filter>XAML Files</Filter></ApplicationDefinition>
     <Page Include="MainWindow.xaml"><Filter>XAML Files</Filter></Page>
+    <Midl Include="App.idl"><Filter>IDL Files</Filter></Midl>
+    <Midl Include="MainWindow.idl"><Filter>IDL Files</Filter></Midl>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Square44x44Logo.png"><Filter>Assets</Filter></Image>
@@ -43,3 +49,4 @@
     <Image Include="Assets\StoreLogo.png"><Filter>Assets</Filter></Image>
   </ItemGroup>
 </Project>
+
