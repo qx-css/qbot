@@ -1,4 +1,4 @@
-# QdBot
+﻿# QdBot
 
 QdBot 是一个使用 C++/WinRT + WinUI 3 编写的 Windows QQ AI 机器人控制端。它通过 OneBot v11 适配器接入 QQ，当前先实现 AI 模式：收到群聊或私聊消息后调用 OpenAI 兼容接口，并把 AI 回复发送回 QQ。
 
@@ -69,3 +69,13 @@ QdBot 不直接逆向登录 QQ。你需要使用 NapCat、Lagrange.OneBot 等 On
 - 请只在你有权限的 QQ 群和账号上使用。
 - 触发前缀留空时，机器人会回复所有收到的消息，群里可能比较吵。
 - 建议先把 `触发前缀` 设置为 `/ai` 或其他固定前缀。
+
+## GitHub Actions 打包
+
+仓库推送到 GitHub 后，可以在 `Actions` 页面运行 `Windows Build`：
+
+1. 打开仓库页面。
+2. 点击 `Actions`。
+3. 选择 `Windows Build`。
+4. 点击 `Run workflow`。
+5. 等构建完成后，在本次运行页面下载 `QdBot-windows-x64`。

@@ -1,0 +1,40 @@
+﻿name: Windows Build
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build QdBot
+    runs-on: windows-2022
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Restore NuGet packages
+        run: msbuild QdBot.vcxproj /t:restore /p:RestorePackagesConfig=true /p:Configuration=Release /p:Platform=x64
+
+      - name: Build Release
+        run: msbuild QdBot.sln /p:Configuration=Release /p:Platform=x64 /m
+
+      - name: Collect build output
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force artifacts | Out-Null
+          Get-ChildItem -Recurse -Filter QdBot.exe | Copy-Item -Destination artifacts -Force
+          Get-ChildItem -Recurse -Include *.dll,*.pri,*.winmd,*.json -File |
+            Where-Object { $_.FullName -match "\\x64\\Release\\" } |
+            Copy-Item -Destination artifacts -Force -ErrorAction SilentlyContinue
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: QdBot-windows-x64
+          path: artifacts/
