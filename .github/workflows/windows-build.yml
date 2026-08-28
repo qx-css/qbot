@@ -21,7 +21,7 @@ jobs:
       - name: Restore NuGet packages
         shell: pwsh
         run: |
-          msbuild QdBot.vcxproj /t:restore /p:RestorePackagesConfig=true /p:Configuration=Release /p:Platform=x64
+          msbuild QdBot.vcxproj /t:restore /p:RestorePackagesConfig=true /p:Configuration=Release /p:Platform=x64 /fileLogger "/fileLoggerParameters:LogFile=restore.log;Verbosity=normal"
 
       - name: Build Release
         shell: pwsh
@@ -29,9 +29,10 @@ jobs:
           $cppwinrt = Resolve-Path "packages\Microsoft.Windows.CppWinRT.2.0.240405.15\bin\cppwinrt.exe"
           $cppwinrtDir = Split-Path $cppwinrt
           Write-Host "cppwinrt: $cppwinrt"
-          msbuild QdBot.sln /p:Configuration=Release /p:Platform=x64 /p:CppWinRTPackage=true /p:CppWinRTPath="$cppwinrtDir\" /m
+          msbuild QdBot.sln /p:Configuration=Release /p:Platform=x64 /p:CppWinRTPackage=true /p:CppWinRTPath="$cppwinrtDir\" /m /fileLogger "/fileLoggerParameters:LogFile=build.log;Verbosity=detailed"
 
       - name: Collect build output
+        if: success()
         shell: pwsh
         run: |
           New-Item -ItemType Directory -Force artifacts | Out-Null
@@ -41,7 +42,18 @@ jobs:
             Copy-Item -Destination artifacts -Force -ErrorAction SilentlyContinue
 
       - name: Upload artifact
+        if: success()
         uses: actions/upload-artifact@v4
         with:
           name: QdBot-windows-x64
           path: artifacts/
+
+      - name: Upload build logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: QdBot-build-logs
+          path: |
+            restore.log
+            build.log
+
